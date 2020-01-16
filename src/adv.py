@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -38,6 +39,22 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
+player = Player(input("Character Name: "), room['outside'])
+print(player.current_room)
+
+directions = ["n", "s", "e", "w"]
+
+while True:
+    cmd = input(f"Will {player.name} travel north[n], south[s], east[e], or west[w]? or quit[q] ").lower()
+    if cmd in directions:
+        player.travel(cmd)
+    elif cmd == "q":
+        print(f"\nThanks for playing")
+        break
+    else:
+        print("I did not recognize that command")
+
 
 # Write a loop that:
 #
