@@ -4,22 +4,26 @@ from player import Player
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+'outside':  Room("Outside Cave Entrance",
+                     "North of you, the cave mount beckons", "Pipe Pistol", "Grendade"),
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+
+    'foyer': Room("Foyer", "Dim light filters in from the south. Dusty passages run north and east", "Raider's Gear",
+                  "Grendade"),
+
+
+ 'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", "FatMan", "Grendade"),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+to north. The smell of gold permeates the air.""", "Institute Pistol", "Grendade"),
+
+'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", "Super Mutant Cowl", "Grendade"),
 }
 
 
@@ -40,10 +44,21 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player = Player(input("Character Name: "), room['outside'])
+
+player = Player(input("Character Name: "), room['outside'], items=None)
+
 print(player.current_room)
+print(player.current_item)
 
 directions = ["n", "s", "e", "w"]
+items = ["Pipe Pistol", "Grenade", "Raider's Gear", "FatMan", "Institute Pistol", "Super Mutant Cowl"]
+
+while True:
+    cmd = input(f"What item does {player.name} want?")
+    if cmd in items:
+        player.pickup(cmd)
+    else:
+        print("That item is not in this room")
 
 while True:
     cmd = input(f"Will {player.name} travel north[n], south[s], east[e], or west[w]? or quit[q] ").lower()
@@ -54,6 +69,7 @@ while True:
         break
     else:
         print("I did not recognize that command")
+
 
 
 # Write a loop that:
